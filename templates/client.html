@@ -49,27 +49,13 @@ Reply firebase:{{st}}
 
   </body>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 var submit;
 function checkForm(form)
 {
 alert(submit.value);
-
-{% for i in results %}
-{% if i['type']=="lawyer" and i['article_id']==submit.value %}
-
-var para = document.createElement("P");                       // Create a <p> element
-var t = document.createTextNode({i['reply']}+" replied by "+i['name']);       // Create a text node
-para.appendChild(t);                                          // Append the text to <p>
-document.getElementById("myDIV").appendChild(para);
-
-{% endif %}
-{% endfor %}
-
 return false;
-
 }
-
 function Clicked(button)
 {
   submit= button;

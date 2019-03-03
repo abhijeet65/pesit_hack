@@ -40,7 +40,6 @@ def basic():
         else:
             ch=2
         session['type']=typeper
-        #print(type(typeper))
         try:
             auth.sign_in_with_email_and_password(email, password)
             session['user']=request.form['name']
@@ -79,17 +78,20 @@ def firesignup():
     return render_template('firebase.html')
 
 
-@app.route("/firepush",methods=['GET','POST'])
+@app.route("/firelink",methods=['GET','POST'])
 def querypost():
     data=(request.form['data'])
     username=session['user']
     hash = random.getrandbits(8)
-    if session['user']=='client':
+    if session['type']=='client':
         try:
             firebase1.post('/users', {'name':username,'article':data,'type':session['type'],'article_id':hash})
+            todo = db.child("users").get()
+            to = todo.val()
+            return render_template("client.html",username=username,st="success",results=to.values())
         except:
             return render_template('client.html',st="unsuccessful")
-    return render_template("client.html",st="success")
+    return render_template("client.html",st="unsuccess")
 
 
 if __name__ == '__main__':
