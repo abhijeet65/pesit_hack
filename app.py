@@ -82,7 +82,7 @@ def firesignup():
 def querypost():
     data=(request.form['data'])
     username=session['user']
-    hash = random.getrandbits(8)
+    hash = random.getrandbits(14)
     if session['type']=='client':
         try:
             firebase1.post('/users', {'name':username,'article':data,'type':session['type'],'article_id':hash})
@@ -93,6 +93,21 @@ def querypost():
             return render_template('client.html',st="unsuccessful")
     return render_template("client.html",st="unsuccess")
 
+@app.route("/reply_lawyer.html",methods=['GET','POST'])
+def querypost1():
+    article_id=request.form['sexytext']
+    todo = db.child("users").get()
+    to = todo.val()
+    return render_template('reply_lawyer.html',a_id=article_id,results=to.values())
+
+@app.route('/player_detail')
+def data():
+    # here we want to get the value of user (i.e. ?user=some-value)
+    user = request.args.get('username')
+    print(user)
+    todo = db.child("users").get()
+    to = todo.val()
+    return render_template('reply_lawyer.html',a_id=user,results=to.values())
 
 if __name__ == '__main__':
 	app.run(debug=True)

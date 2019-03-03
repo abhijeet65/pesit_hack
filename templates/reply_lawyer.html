@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<h1>Article id:{{a_id}}</h1>
+
+<table border=2 style="background-color:yellow;">
+{% for i in results %}
+<tr>
+  {% if i['article_id']==a_id and i['type']=="lawyer" %}
+ <td>{{i['type']}}</td>
+ <td>{{i['article_id']}}</td>
+ <td>{{i['lawyername']}}</td>
+ <td>{{i['reply']}}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</table>
+
+  </body>
+</html>

@@ -1,1 +1,14 @@
 <h1>firebase</h1>
+<table border=2>
+{% for i in results %}
+<tr>
+  {% if i['article_id']==a_id and i['type']=="lawyer" %}
+ <td>{{i['type']}}</td>
+ <td>{{i['article_id']}}</td>
+ <td>{{i['lawyername']}}</td>
+ <td>{{i['reply']}}
+ <td><input onclick="Clicked(this);" type="submit" name="submit" value="{{i['article_id']}}"/></td>
+</tr>
+{% endif %}
+{% endfor %}
+</table>

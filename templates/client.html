@@ -30,7 +30,7 @@
 Reply firebase:{{st}}
 </div>
 
-<form method="post" onsubmit="return checkForm(this);">
+
 <table border=2>
 {% for i in results %}
 {% if i['name']== username %}
@@ -38,28 +38,22 @@ Reply firebase:{{st}}
  <td>{{i['type']}}</td>
  <td>{{i['article']}}</td>
  <td>{{i['name']}}</td>
- <td><input onclick="Clicked(this);" type="submit" name="submit" value="{{i['article_id']}}"/></td>
+ <td><input type="button" name="theButton" value="Detail" onclick="showDetails({{i['article_id']}});">{{i['article_id']}}</td>
 </tr>
 {% endif %}
 {% endfor %}
 </table>
-</form>
 
 <p id="myDIV">This is reply</p>
 
   </body>
 
-<script type="text/javascript">
-var submit;
-function checkForm(form)
-{
-alert(submit.value);
-return false;
-}
-function Clicked(button)
-{
-  submit= button;
-}
-</script>
+  <script type="text/javascript">
+  function showDetails(username)
+  {
+     window.location = '/player_detail?username='+username;
+  }
+  </script>
+
 
 </html>
