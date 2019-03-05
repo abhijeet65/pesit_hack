@@ -1,48 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Login Page</title>
+   <!--Made with love by Mutiullah Samim -->
+<style>
+.card{
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	padding:100px;
+}
+body {
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ background-image: url('/static/stack.png');
+ background-color: #cccccc;
+}
+
+</style>
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
 </head>
 <body>
-	<div class="container">
-		{% if s %}
-			<div class="alert alert-success">
-				<h2>{{s}}</h2>
-			</div>
-		{% endif %}
+<div class="container">
+	{% if s %}
+		<div class="alert alert-success">
+			<h2>{{s}}</h2>
+		</div>
+	{% endif %}
 
-		{% if us %}
-			<div class="alert alert-danger">
-				<h2>{{us}}</h2>
+	{% if us %}
+		<div class="alert alert-danger">
+			<h2>{{us}}</h2>
+		</div>
+	{% endif %}
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Welcome To Justica</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-google-plus-square"></i></span>
+					<span><i class="fab fa-twitter-square"></i></span>
+				</div>
 			</div>
-		{% endif %}
+			<div class="card-body">
+				<form action="/" method="post">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="email" id="inputEmail" class="form-control" name="name"  placeholder="Email address" required autofocus>
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" id="inputPassword" name="pass"  placeholder="Password" required>
+					</div>
 
-      <form action="/" method="post">
-        <h2>Please sign in</h2>
-        <label for="inputEmail">Email address</label>
-        <input type="email" id="inputEmail" name="name"  placeholder="Email address" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" name="pass"  placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-				<input type="radio" name="typeperson" value="lawyer"> Lawyer
-				<input type="radio" name="typeperson" value="client"> Client
-        <button class="btn btn-success" type="submit">Sign in</button>
-      </form>
-			<form action="{{url_for('signup1')}}">
-				<button class="btn btn-primary" type="submit">Signup</button>
-</form>
-    </div>
-    <footer></footer>
+						<input type="radio" name="typeperson" value="lawyer" required> Lawyer
+						<input type="radio" name="typeperson" value="client" required> Client
+						<br>
+		        <center><button class="btn btn-success" type="submit">Sign in</button></center>
+				</form>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					<form action="{{url_for('signup1')}}">
+						<button class="btn btn-primary" type="submit">Signup</button>
+		      </form>
+				</div>
+				<div class="d-flex justify-content-center">
+					<a href="#">Forgot your password?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

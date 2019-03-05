@@ -2,6 +2,10 @@ import pyrebase
 import random
 from firebase import firebase
 from flask import *
+import urllib.request
+from datetime import datetime
+import os
+import tempfile
 app = Flask(__name__)
 config = {
     "apiKey": "AIzaSyBxRaf5lE-4yER2W2iAPgehRwlxRGCOWgs",
@@ -11,6 +15,7 @@ config = {
     "storageBucket": "flasklogin-11701.appspot.com",
     "messagingSenderId": "715568210092"
 }
+
 
 firebase12 = pyrebase.initialize_app(config)
 
@@ -22,6 +27,8 @@ app.secret_key="lawyeriscreat"
 
 db = firebase12.database()
 
+UPLOAD_FOLDER = os.path.basename('uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def basic():
@@ -82,18 +89,20 @@ def firesignup():
 def querypost():
     data=(request.form['data'])
     username=session['user']
+    op=request.form['drop']
+    DateTime = datetime.now()
     hash = random.getrandbits(14)
     if session['type']=='client':
         try:
-            firebase1.post('/users', {'name':username,'article':data,'type':session['type'],'article_id':hash})
+            firebase1.post('/users', {'name':username,'article':data,'type':"client",'article_id':hash,'category':op,'time':DateTime})
             todo = db.child("users").get()
             to = todo.val()
-            return render_template("client.html",username=username,st="success",results=to.values())
+            return render_template("client.html",username=username,st="success",t=username,results=to.values())
         except:
             return render_template('client.html',st="unsuccessful")
     return render_template("client.html",st="unsuccess")
 
-@app.route("/reply_lawyer.html",methods=['GET','POST'])
+@app.route("/reply_lawyer",methods=['GET','POST'])
 def querypost1():
     article_id=request.form['sexytext']
     todo = db.child("users").get()
@@ -108,6 +117,24 @@ def data():
     todo = db.child("users").get()
     to = todo.val()
     return render_template('reply_lawyer.html',a_id=user,results=to.values())
+
+@app.route('/lout')
+def logout():
+    session.pop('username', None)
+    return render_template('new.html')
+
+@app.route('/back')
+def backto():
+    user = session['user']
+    todo = db.child("users").get()
+    to = todo.val()
+    return render_template('client.html',username=user,results=to.values())
+
+@app.route('/paymentroute')
+def payment():
+    return render_template('payment.html')
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

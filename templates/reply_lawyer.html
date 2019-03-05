@@ -1,24 +1,53 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-<h1>Article id:{{a_id}}</h1>
 
-<table border=2 style="background-color:yellow;">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <div class="alert alert-primary" role="alert">
+      Showing all the replies made by various Lawyers...
+      <h1>Article id:{{a_id}}</h1>
+
+      Click one of them to Chat with the Lawyer and Go to the payment portal!!
+    </div>
+
+
+<div class="container">
+<form action="{{url_for('backto')}}">
+    <button type="submit" class="btn btn-danger">Back To dashboard</button>
+</form>
+
+
+
+  <form action="{{url_for('payment')}}" method="post">
+  <ul class="list-unstyled">
 {% for i in results %}
-<tr>
   {% if i['article_id']==a_id and i['type']=="lawyer" %}
- <td>{{i['type']}}</td>
- <td>{{i['article_id']}}</td>
- <td>{{i['lawyername']}}</td>
- <td>{{i['reply']}}</td>
-</tr>
+  <li class="media" style="padding:50px;margin-botton:100px;">
+    <img src="{{url_for('static', filename='stack.png')}}" style="width:40px;height:40px;" class="mr-3" alt="...">
+        <div class="media-body">
+          <h5 class="mt-0 mb-1">{{i['lawyername']}}</h5>
+          {{i['reply']}}
+          <button type="submit" class="btn btn-info">Buy Credits and chat</button>
+
+        </div>
+      </li>
 {% endif %}
 {% endfor %}
-</table>
+</ul>
+</form>
+</div>
 
   </body>
 </html>
